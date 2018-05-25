@@ -1,10 +1,9 @@
-package com.yash.moviebookingapp.screenserviceimpl;
+package com.yash.moviebookingapp.serviceimpltest;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -12,14 +11,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.yash.moviebookingapp.dao.ScreenDAO;
 import com.yash.moviebookingapp.exception.DuplicateScreenNameException;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
 import com.yash.moviebookingapp.exception.ScreenNotGivenException;
 import com.yash.moviebookingapp.exception.ScreenRepositoryEmptyException;
 import com.yash.moviebookingapp.exception.ScreensNotMoreThanThreeException;
 import com.yash.moviebookingapp.model.Screen;
-import com.yash.moviebookingapp.screendao.ScreenDAO;
-import com.yash.moviebookingapp.screenservice.ScreenService;
+import com.yash.moviebookingapp.service.ScreenService;
+import com.yash.moviebookingapp.serviceimpl.ScreenServiceImpl;
 
 public class ScreenServiceImplTest {
 
@@ -57,8 +57,11 @@ public class ScreenServiceImplTest {
 	@Test(expected = ScreensNotMoreThanThreeException.class)
 	public void addScreen_ScreenObjectGivenAfterThirdScreenAdded_ThrowScreensNotMoreThanThreeException() {
 		Screen screen = new Screen(102, "Audi-2");
-		when(screenDAO.insert(screen))
-				.thenThrow(new ScreensNotMoreThanThreeException("Screens should not be more than three"));
+		List<Screen> screens = new ArrayList<Screen>();
+		screens.add(new Screen(101, "Audi-1"));
+		screens.add(new Screen(102, "Audi-2"));
+		screens.add(new Screen(103, "Audi-3"));
+		when(screenDAO.getAllScreens()).thenReturn(screens);
 		screenService.addScreen(screen);
 	}
 
@@ -98,7 +101,7 @@ public class ScreenServiceImplTest {
 	@Test(expected = ScreenRepositoryEmptyException.class)
 	public void getAllScreens_NoScreensAdded_throwsScreenRepositoryEmptyException() {
 
-		when(screenDAO.getAllScreens())
+		when(screenDAO.getAllScreens().isEmpty())
 				.thenThrow(new ScreenRepositoryEmptyException("No screens added to the repository"));
 
 		List<Screen> actualScreens = screenService.getAllScreens();

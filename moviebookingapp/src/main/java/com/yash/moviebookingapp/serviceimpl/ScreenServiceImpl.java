@@ -1,12 +1,13 @@
-package com.yash.moviebookingapp.screenserviceimpl;
+package com.yash.moviebookingapp.serviceimpl;
 
 import java.util.List;
 
+import com.yash.moviebookingapp.dao.ScreenDAO;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
 import com.yash.moviebookingapp.exception.ScreenNotGivenException;
+import com.yash.moviebookingapp.exception.ScreensNotMoreThanThreeException;
 import com.yash.moviebookingapp.model.Screen;
-import com.yash.moviebookingapp.screendao.ScreenDAO;
-import com.yash.moviebookingapp.screenservice.ScreenService;
+import com.yash.moviebookingapp.service.ScreenService;
 
 /**
  * This class is the implementation of Screen Service It provides services
@@ -45,6 +46,8 @@ public class ScreenServiceImpl implements ScreenService {
 			throw new ScreenNotGivenException("Screen should not be null");
 		if (screen.getId() < 0 || screen.getName() == null || screen.getName().equals(""))
 			throw new EmptyObjectException("Screen should have some data");
+		if(screenDAO.getAllScreens().size()>=3)
+			throw new ScreensNotMoreThanThreeException("Screen should not be more than three");
 		return screenDAO.insert(screen);
 	}
 

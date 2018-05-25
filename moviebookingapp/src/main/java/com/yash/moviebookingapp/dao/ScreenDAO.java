@@ -1,4 +1,4 @@
-package com.yash.moviebookingapp.screendao;
+package com.yash.moviebookingapp.dao;
 
 import java.util.List;
 

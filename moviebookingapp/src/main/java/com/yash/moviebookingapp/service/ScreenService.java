@@ -1,4 +1,4 @@
-package com.yash.moviebookingapp.screenservice;
+package com.yash.moviebookingapp.service;
 
 import java.util.List;
 
