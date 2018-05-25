@@ -56,7 +56,7 @@ public class ScreenServiceImplTest {
 
 	@Test(expected = ScreensNotMoreThanThreeException.class)
 	public void addScreen_ScreenObjectGivenAfterThirdScreenAdded_ThrowScreensNotMoreThanThreeException() {
-		Screen screen = new Screen(102, "Audi-2");
+		Screen screen = new Screen(102, "Audi-4");
 		List<Screen> screens = new ArrayList<Screen>();
 		screens.add(new Screen(101, "Audi-1"));
 		screens.add(new Screen(102, "Audi-2"));
