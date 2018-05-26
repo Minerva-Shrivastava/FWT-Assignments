@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.yash.moviebookingapp.dao.ScreenDAO;
 import com.yash.moviebookingapp.daoimpl.ScreenDAOImpl;
 import com.yash.moviebookingapp.exception.DuplicateScreenNameException;
+import com.yash.moviebookingapp.exception.ScreenNotFoundException;
 import com.yash.moviebookingapp.model.Screen;
 
 public class ScreenDAOImplTest {
@@ -38,5 +39,16 @@ public class ScreenDAOImplTest {
 	public void getScreenByName_ScreenNameNotGiven_ThrowsDuplicateScreenNameException() throws Exception {
 		String screenName = null;
 		screenDAO.getScreenByName(screenName);
+	}
+	
+	@Test(expected = ScreenNotFoundException.class)
+	public void getScreenByName_ScreenNameGiven_ThrowsScreenNotFoundException() throws Exception {
+		screenDAO.getScreenByName("Audi-14");
+	}
+	
+	@Test
+	public void getScreenByName_ScreenNameGiven_ShouldReturnScreen() throws Exception {
+		Screen actualScreen = screenDAO.getScreenByName("Audi-2");
+		assertEquals("Audi-2", actualScreen.getName());
 	}
 }
