@@ -30,6 +30,7 @@ public class ScreenDAOImpl implements ScreenDAO {
 	}
 
 	public Screen getScreenByName(String screenName) {
+		
 		if(screenName == null || screenName.isEmpty())
 			throw new DuplicateScreenNameException("This screen is already present, add another screen");
 		List<Screen> fileContents = fileUtil.readFile(fileName, typeForJson);
