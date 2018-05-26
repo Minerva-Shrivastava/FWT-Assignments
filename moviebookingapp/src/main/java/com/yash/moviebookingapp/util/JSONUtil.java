@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
 import com.yash.moviebookingapp.exception.JsonTextNotGivenException;
 import com.yash.moviebookingapp.exception.JsonTypeNotGivenException;
-import com.yash.moviebookingapp.model.Screen;
 
 public class JSONUtil {
 
@@ -21,9 +20,10 @@ public class JSONUtil {
 			throw new EmptyObjectException("An object should be given");
 	}
 	
-	public static Object convertJSONToObject(String jsonText,Type typeOfObject) {
+	public static <T> T convertJSONToObject(String jsonText,Type typeOfObject) {
 		isJSONTextGiven(jsonText);
 		isJSONTypeOfObjectGiven(typeOfObject);
+		// TODO work on this
 		Gson gson = new Gson();
 		return gson.fromJson(jsonText, typeOfObject);
 	}

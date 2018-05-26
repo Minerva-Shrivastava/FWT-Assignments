@@ -28,8 +28,9 @@ public class FileUtil {
 		return true;
 	}
 	
-	public List<Object> readFile(String fileName, Type type) {
-		List<Object> objects = new ArrayList<Object>();
+	@SuppressWarnings("unchecked")
+	public <T> List<T> readFile(String fileName, Type type) {
+		List<T> objects = new ArrayList<T>();
 		File fileToRead = getFile(fileName);
 		try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(fileToRead));
@@ -37,7 +38,7 @@ public class FileUtil {
 			String currentline;
 			
 			while ((currentline = fileReader.readLine()) != null) {
-				objects.add(JSONUtil.convertJSONToObject(currentline, type));
+				objects.add((T) JSONUtil.convertJSONToObject(currentline, type));
 			}
 			
 			fileReader.close();

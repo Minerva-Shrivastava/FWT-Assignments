@@ -1,6 +1,6 @@
 package com.yash.moviebookingapp.daoimpltest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.yash.moviebookingapp.dao.ScreenDAO;
 import com.yash.moviebookingapp.daoimpl.ScreenDAOImpl;
+import com.yash.moviebookingapp.exception.DuplicateScreenNameException;
 import com.yash.moviebookingapp.model.Screen;
 
 public class ScreenDAOImplTest {
@@ -33,4 +34,9 @@ public class ScreenDAOImplTest {
 		assertEquals(3, screens.size());
 	}
 
+	@Test(expected = DuplicateScreenNameException.class)
+	public void getScreenByName_ScreenNameNotGiven_ThrowsDuplicateScreenNameException() throws Exception {
+		String screenName = null;
+		screenDAO.getScreenByName(screenName);
+	}
 }

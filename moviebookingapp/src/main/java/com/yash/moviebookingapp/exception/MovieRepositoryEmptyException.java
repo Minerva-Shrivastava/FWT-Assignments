@@ -1,14 +1,13 @@
 package com.yash.moviebookingapp.exception;
 
-public class ScreenNotGivenException extends RuntimeException{
+public class MovieRepositoryEmptyException extends RuntimeException{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ScreenNotGivenException(String message) {
+	public MovieRepositoryEmptyException(String message) {
 		super(message);
 	}
-	
 }

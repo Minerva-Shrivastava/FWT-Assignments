@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.yash.moviebookingapp.dao.ScreenDAO;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
-import com.yash.moviebookingapp.exception.ScreenNotGivenException;
+import com.yash.moviebookingapp.exception.ObjectNotGivenException;
 import com.yash.moviebookingapp.exception.ScreensNotMoreThanThreeException;
 import com.yash.moviebookingapp.model.Screen;
 import com.yash.moviebookingapp.service.ScreenService;
@@ -43,7 +43,7 @@ public class ScreenServiceImpl implements ScreenService {
 
 	public int addScreen(Screen screen) {
 		if (screen == null)
-			throw new ScreenNotGivenException("Screen should not be null");
+			throw new ObjectNotGivenException("Screen should not be null");
 		if (screen.getId() < 0 || screen.getName() == null || screen.getName().equals(""))
 			throw new EmptyObjectException("Screen should have some data");
 		if(screenDAO.getAllScreens().size()>=3)

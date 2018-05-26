@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 import com.yash.moviebookingapp.dao.ScreenDAO;
 import com.yash.moviebookingapp.exception.DuplicateScreenNameException;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
-import com.yash.moviebookingapp.exception.ScreenNotGivenException;
+import com.yash.moviebookingapp.exception.ObjectNotGivenException;
 import com.yash.moviebookingapp.exception.ScreenRepositoryEmptyException;
 import com.yash.moviebookingapp.exception.ScreensNotMoreThanThreeException;
 import com.yash.moviebookingapp.model.Screen;
@@ -34,7 +34,7 @@ public class ScreenServiceImplTest {
 		screenService = new ScreenServiceImpl(screenDAO);
 	}
 
-	@Test(expected = ScreenNotGivenException.class)
+	@Test(expected = ObjectNotGivenException.class)
 	public void addScreen_ScreenObjectNotGiven_ThrowScreenNotGivenException() {
 		Screen screen = null;
 		screenService.addScreen(screen);
@@ -68,10 +68,13 @@ public class ScreenServiceImplTest {
 	@Test(expected = DuplicateScreenNameException.class)
 	public void addScreen_DuplicateScreenNameGiven_ThrowDuplicateScreenNameException() {
 		Screen screen = new Screen(101, "Audi-1");
+		
 		when(screenDAO.insert(screen)).thenReturn(1);
 		when(screenDAO.getScreenByName("Audi-1")).thenReturn(screen);
+		
 		when(screenDAO.insert(screen))
 				.thenThrow(new DuplicateScreenNameException("Screens should not be more than three"));
+		
 		screenService.addScreen(screen);
 	}
 
@@ -84,7 +87,7 @@ public class ScreenServiceImplTest {
 
 	}
 
-	@Test
+ 	@Test
 	public void getAllScreens_ThreeScreensGiven_ShouldReturnListOfScreens() {
 
 		List<Screen> screens = new ArrayList<Screen>();
@@ -104,7 +107,7 @@ public class ScreenServiceImplTest {
 		when(screenDAO.getAllScreens().isEmpty())
 				.thenThrow(new ScreenRepositoryEmptyException("No screens added to the repository"));
 
-		List<Screen> actualScreens = screenService.getAllScreens();
+		screenService.getAllScreens();
 
 	}
 }

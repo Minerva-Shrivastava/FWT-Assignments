@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
 import com.yash.moviebookingapp.exception.JsonTextNotGivenException;
 import com.yash.moviebookingapp.exception.JsonTypeNotGivenException;
+import com.yash.moviebookingapp.model.Movie;
 import com.yash.moviebookingapp.model.Screen;
 
 public class JSONUtilTest {
@@ -45,8 +46,16 @@ public class JSONUtilTest {
 	}
 	
 	@Test
-	public void convertJSONToObject_JSONFormatAndTypeOfObjectGiven_ShouldReturnObject() {
-		Screen screen = (Screen) JSONUtil.convertJSONToObject("{\"id\":101,\"name\":\"Audi-1\"}", new TypeToken<Screen>() {}.getType());
+	public void convertScreenJSONToObject_JSONFormatAndTypeOfObjectGiven_ShouldReturnObject() {
+		Object screen = JSONUtil.convertJSONToObject("{\"id\":101,\"name\":\"Audi-1\"}", new TypeToken<Screen>() {}.getType());
+		System.out.println(screen);
 		assertTrue( screen instanceof Screen );
+	}
+	
+	@Test
+	public void convertMovieJSONToObject_JSONFormatAndTypeOfObjectGiven_ShouldReturnObject() {
+		Object movie = JSONUtil.convertJSONToObject("{\"id\":1,\"title\":\"Raazi\",\"duration\":\"02:00:00 AM\",\"production\":\"pata ni\",\"actors\":[\"Alia Bhatt\"]}", new TypeToken<Movie>() {}.getType());
+		System.out.println(movie);
+		assertTrue( movie instanceof Movie);
 	}
 }
