@@ -2,6 +2,7 @@ package com.yash.moviebookingapp.serviceimpl;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.yash.moviebookingapp.dao.MovieDAO;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
@@ -13,13 +14,14 @@ import com.yash.moviebookingapp.service.MovieService;
 public class MovieServiceImpl implements MovieService {
 
 	private MovieDAO movieDAO;
+	private Logger logger = Logger.getLogger("MovieServiceImpl.class");
 	
 	public MovieServiceImpl(MovieDAO movieDAO) {
 		this.movieDAO = movieDAO;
 	}
 
 	public int addMovie(Movie movie) {
-		
+		logger.info("");
 		isMovieGiven(movie);
 		
 		isMovieObjectEmpty(movie);

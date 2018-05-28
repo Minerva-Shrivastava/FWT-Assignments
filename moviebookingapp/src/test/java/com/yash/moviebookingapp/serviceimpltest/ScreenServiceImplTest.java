@@ -35,7 +35,7 @@ public class ScreenServiceImplTest {
 	}
 
 	@Test(expected = ObjectNotGivenException.class)
-	public void addScreen_ScreenObjectNotGiven_ThrowScreenNotGivenException() {
+	public void addScreen_ScreenObjectNotGiven_ThrowObjectNotGivenException() {
 		Screen screen = null;
 		screenService.addScreen(screen);
 	}
@@ -87,6 +87,16 @@ public class ScreenServiceImplTest {
 
 	}
 
+	@Test(expected = ScreenRepositoryEmptyException.class)
+	public void getAllScreens_NoScreensAdded_throwsScreenRepositoryEmptyException() {
+
+		when(screenDAO.getAllScreens().isEmpty())
+				.thenThrow(new ScreenRepositoryEmptyException("No screens added to the repository"));
+
+		screenService.getAllScreens();
+
+	}
+	
  	@Test
 	public void getAllScreens_ThreeScreensGiven_ShouldReturnListOfScreens() {
 
@@ -100,14 +110,5 @@ public class ScreenServiceImplTest {
 
 		assertEquals(screens, actualScreens);
 	}
-
-	@Test(expected = ScreenRepositoryEmptyException.class)
-	public void getAllScreens_NoScreensAdded_throwsScreenRepositoryEmptyException() {
-
-		when(screenDAO.getAllScreens().isEmpty())
-				.thenThrow(new ScreenRepositoryEmptyException("No screens added to the repository"));
-
-		screenService.getAllScreens();
-
-	}
+	
 }

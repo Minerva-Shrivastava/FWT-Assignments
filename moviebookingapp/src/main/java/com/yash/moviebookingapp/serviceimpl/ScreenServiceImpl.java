@@ -1,6 +1,7 @@
 package com.yash.moviebookingapp.serviceimpl;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.yash.moviebookingapp.dao.ScreenDAO;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
@@ -22,6 +23,7 @@ public class ScreenServiceImpl implements ScreenService {
 	 * dependency over ScreenDAO
 	 */
 	private ScreenDAO screenDAO;
+	private Logger logger = Logger.getLogger("ScreenServiceImpl.class");
 
 	/**
 	 * Constructor to initialize ScreenDAO dependency
@@ -42,9 +44,10 @@ public class ScreenServiceImpl implements ScreenService {
 	 */
 
 	public int addScreen(Screen screen) {
+		logger.info("Adding screen "+screen);
 		if (screen == null)
 			throw new ObjectNotGivenException("Screen should not be null");
-		if (screen.getId() < 0 || screen.getName() == null || screen.getName().equals(""))
+		if (screen.getId() <= 0 || screen.getName() == null || screen.getName().equals(""))
 			throw new EmptyObjectException("Screen should have some data");
 		if(screenDAO.getAllScreens().size()>=3)
 			throw new ScreensNotMoreThanThreeException("Screen should not be more than three");
@@ -59,10 +62,12 @@ public class ScreenServiceImpl implements ScreenService {
 	 * @return the Screen object
 	 */
 	public Screen getScreenByName(String screenName) {
+		logger.info("Getting screen by name");
 		return screenDAO.getScreenByName(screenName);
 	}
 
 	public List<Screen> getAllScreens() {
+		logger.info("Getting all screens");
 		return screenDAO.getAllScreens();
 	}
 

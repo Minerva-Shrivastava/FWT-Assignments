@@ -1,6 +1,7 @@
 package com.yash.moviebookingapp.util;
 
 import java.lang.reflect.Type;
+import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.yash.moviebookingapp.exception.EmptyObjectException;
@@ -9,7 +10,10 @@ import com.yash.moviebookingapp.exception.JsonTypeNotGivenException;
 
 public class JSONUtil {
 
+	private static Logger logger = Logger.getLogger("JSONUtil.class");
+	
 	public static String convertObjectToJSON(Object object) {
+		logger.info("Converting  Object To JSON");
 		isObjectGiven(object);
 		Gson gson = new Gson();
 		return gson.toJson(object);
@@ -21,9 +25,9 @@ public class JSONUtil {
 	}
 	
 	public static <T> T convertJSONToObject(String jsonText,Type typeOfObject) {
+		logger.info("converting JSON To Object");
 		isJSONTextGiven(jsonText);
 		isJSONTypeOfObjectGiven(typeOfObject);
-		// TODO work on this
 		Gson gson = new Gson();
 		return gson.fromJson(jsonText, typeOfObject);
 	}

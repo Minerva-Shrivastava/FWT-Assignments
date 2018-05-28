@@ -13,6 +13,10 @@ public class Movie {
 	private List<String> actors;
 	private String screenName;
 	
+	public Movie() {
+		super();
+	}
+
 	public Movie(int id, String title, Time duration, String production, List<String> actors, String screenName) {
 		super();
 		this.id = id;

@@ -5,6 +5,10 @@ public class Screen {
 	private int id;
 	private String name;
 	
+	public Screen() {
+		super();
+	}
+
 	public Screen(int id, String name) {
 		super();
 		this.id = id;
