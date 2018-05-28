@@ -93,7 +93,7 @@ public class ShowServiceImplTest {
 		Time startTime = Time.valueOf("09:00:00");
 		List<Show> shows = Arrays.asList(new Show(4, "Show-4", Date.valueOf("2018-5-25"), Time.valueOf("09:00:00"), movie),
 										 new Show(5, "Show-5", Date.valueOf("2018-5-25"), Time.valueOf("11:00:00"), movie));
-		//when(showDAO.insertShows(shows)).thenReturn(shows.size());
+		when(showDAO.insertShows(shows)).thenReturn(shows.size());
 		List<Show> actualShows = showService.makeShows(noOfShows,duration,startTime,movie);
 		assertEquals(3, actualShows.size());
 	}
